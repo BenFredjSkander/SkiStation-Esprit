@@ -2,10 +2,9 @@ package tn.esprit.skistation.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.skistation.domain.Abonnement;
-import tn.esprit.skistation.domain.Piste;
-import tn.esprit.skistation.domain.Skieur;
+import tn.esprit.skistation.domain.*;
 import tn.esprit.skistation.domain.enums.TypeAbonnement;
+import tn.esprit.skistation.repositories.CoursRepository;
 import tn.esprit.skistation.repositories.PisteRepository;
 import tn.esprit.skistation.repositories.SkieurRepository;
 import tn.esprit.skistation.services.ISkieurService;
@@ -25,6 +24,7 @@ public class SkieurService implements ISkieurService {
 
     private final SkieurRepository skieurRepository;
     private final PisteRepository pisteRepository;
+    private final CoursRepository coursRepository;
 
 
     @Override
@@ -59,5 +59,21 @@ public class SkieurService implements ISkieurService {
         Skieur skieur = skieurRepository.findById(numSkieur).orElseThrow(NullPointerException::new);
         skieur.getPistes().add(piste);
         return skieurRepository.save(skieur);
+    }
+
+    @Override
+    public Skieur addSkierAndAssignToCourse(Skieur skieur, Long numCourse) {
+        Cours cours = coursRepository.findById(numCourse).orElseThrow(NullPointerException::new);
+
+        Inscription inscription = new Inscription();
+        inscription.setNumSemaine(5);
+        inscription.setCours(cours);
+        skieur.getInscriptions().add(inscription);
+        return skieurRepository.save(skieur);
+    }
+
+    @Override
+    public List<Skieur> retrieveSkiersBySubscriptionType(TypeAbonnement typeAbonnement) {
+        return skieurRepository.findAllByAbonnement_TypeAbonnement(typeAbonnement);
     }
 }

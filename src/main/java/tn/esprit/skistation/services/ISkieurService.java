@@ -1,6 +1,7 @@
 package tn.esprit.skistation.services;
 
 import tn.esprit.skistation.domain.Skieur;
+import tn.esprit.skistation.domain.enums.TypeAbonnement;
 
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface ISkieurService {
     Skieur retrieveSkieur(Long numSkieur);
 
     Skieur assignSkierToPiste(Long numSkieur, Long numPiste);
+
+    Skieur addSkierAndAssignToCourse(Skieur skier, Long numCourse);
+
+    List<Skieur> retrieveSkiersBySubscriptionType(TypeAbonnement typeAbonnement);
 }
