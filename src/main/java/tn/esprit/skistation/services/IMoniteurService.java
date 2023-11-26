@@ -1,7 +1,7 @@
 package tn.esprit.skistation.services;
 
 import tn.esprit.skistation.domain.Moniteur;
-import tn.esprit.skistation.domain.enums.TypeCours;
+import tn.esprit.skistation.domain.enums.Support;
 
 import java.util.List;
 
@@ -23,5 +23,5 @@ public interface IMoniteurService {
 
     Moniteur addInstructorAndAssignToCourse(Moniteur moniteur, Long numCourse);
 
-    List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, TypeCours typeCours);
+    List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support typeCours);
 }

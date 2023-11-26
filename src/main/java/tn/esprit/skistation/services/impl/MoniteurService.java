@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.skistation.domain.Cours;
 import tn.esprit.skistation.domain.Moniteur;
+import tn.esprit.skistation.domain.enums.Support;
 import tn.esprit.skistation.domain.enums.TypeCours;
 import tn.esprit.skistation.repositories.CoursRepository;
 import tn.esprit.skistation.repositories.MoniteurRepository;
@@ -11,7 +12,6 @@ import tn.esprit.skistation.services.IMoniteurService;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,13 +58,9 @@ public class MoniteurService implements IMoniteurService {
     }
 
     @Override
-    public List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, TypeCours typeCours) {
+    public List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support typeCours) {
 
-        Moniteur monit = moniteurRepository.findById(numInstructor).orElseThrow(NullPointerException::new);
-
-//        return monit.getCourses().stream().filter(c->c.getTypeCours() == typeCours).map(c->getWeekNumber(c.get)).collect(Collectors.toList())
-
-        return new ArrayList<>();
+        return coursRepository.numWeeksCourseOfInstructorBySupport(numInstructor, typeCours);
     }
 
 

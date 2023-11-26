@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.skistation.domain.Moniteur;
+import tn.esprit.skistation.domain.enums.Support;
 import tn.esprit.skistation.services.impl.MoniteurService;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value = "/moniteur", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/moniteur")
 @RequiredArgsConstructor
 @Tag(name = "Moniteur", description = "Manage moniteur")
 public class MoniteurController {
@@ -45,6 +46,14 @@ public class MoniteurController {
     @Operation(summary = "Update given moniteur")
     private Moniteur updateMOniteur(@RequestBody Moniteur moniteur) {
         return moniteurService.updateMoniteur(moniteur);
+    }
+
+
+    @GetMapping("/semaines/{numInstructor}")
+    @Operation(summary = "numéros des semaines où un moniteur a donnée des cours")
+    private List<Integer> numWeeksCourseOfInstructorBySupport(@PathVariable Long numInstructor,
+                                                              @RequestParam Support support) {
+        return moniteurService.numWeeksCourseOfInstructorBySupport(numInstructor, support);
     }
 
 }
